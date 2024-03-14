@@ -18,11 +18,16 @@ const getAllProducts = async (req , res) =>{
         let sortFix = sort.replace("," , " ");
         apiData = apiData.sort(sortFix);
     }
+    if(select){
+        // let selectFix = select.replace("," , " ");
+        let selectFix = select.split(",").join(" ");
+        apiData = apiData.select(selectFix);
+    }
     const myData = await apiData;
     res.status(200).json({myData});
 };
 const getAllProductsTesting = async (req , res) =>{
-    const myData = await Product.find(req.query);
+    const myData = await Product.find(req.query).select("name company");
     res.status(200).json({myData});
 };
 
